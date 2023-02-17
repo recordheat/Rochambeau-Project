@@ -10,7 +10,8 @@ body {
 nav {
   display: flex;
   flex-direction: row;
-  background-color: #FFCCCB
+  background-color: #ff726f;
+  border-bottom: 4px solid;
 }
 
 .logo {
@@ -29,8 +30,7 @@ nav {
   margin: 10px;
 }
 
-ul, li, a {
-  display: flex;
+ul, li, a{
   flex-direction: row;
   list-style: none;
   text-decoration: none;
@@ -40,11 +40,19 @@ ul, li, a {
   justify-content: center;
   text-shadow: 1px 1px black;
 }
+ul, li {
+  width: 100%;
+  display: flex;
+}
 
 ul, li, a:hover {
   color: black;
   transition: .3s;
 }
+a .card_class{
+  box-shadow: 4px 2px 5px 3px black;
+}
+
 
 .button-one {
   width: 50%;
@@ -93,18 +101,21 @@ h1{
 }
 
 .second-box {
-  background-color: grey;
+  background-color: rgb(80, 50, 50);
   padding: 16px;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
 }
 
 .sub-content {
-  background-color: yellow;
+  background-color: #ff726f;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   max-width: 100%;
   margin: 100px;
-
+  padding: 52px;
+  border: 3px solid;
 }
 
 h2 {
@@ -122,16 +133,19 @@ h2 {
 }
 
 .box {
-  padding: 50px;
+  max-width: 100%;
+  justify-content: center;
+  align-items: center;
 }
 .text {
+  margin: 16px;
+  font-size: 14px;
   text-align: center;
-  font-size: 18px;
-  justify-content: center;
 }
 
 .third-box {
-  background-color: #ADD8E6;
+  background-color: #ff726f;
+  border-bottom: 2px solid;
 }
 
 .quote {
@@ -172,11 +186,21 @@ h2 {
   width: 100%;
   display: flex;
   justify-content: center;
+  border: 1px solid;
 }
 
 .modal-content {
   width: 50%;
   padding: 4px;
+}
+
+h4 {
+  font-size: 16px;
+  text-decoration: underline;
+}
+.modal-text {
+  font-weight: bold;
+  font-size: 12px;
 }
 
 .modal-button {
@@ -188,12 +212,14 @@ h2 {
 }
 
 .footer {
-  background-color: #90EE90;
+  background-color: #ff726f;
+  border-top: 2px solid;
 }
 
 .footer-text {
   text-align: center;
-  font-size: 18px;
+  font-size: 14px;
   font-style: italic;
   font-weight: bolder;
+  width: 100%;
 }
