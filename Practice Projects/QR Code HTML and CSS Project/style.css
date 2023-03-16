@@ -1,0 +1,37 @@
+body { 
+    background-color: rgb(193, 207, 214);
+    height: 100vh;
+    display: flex; 
+    justify-content: center;  
+    align-items: center;
+    font-family: 'Outfit', sans-serif;
+}
+.container {
+    background-color: rgb(255, 255, 255);
+    width: 400px;
+    height: 600px;
+    border-radius: 25px;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.sub-text {
+    margin: 4px;
+
+}
+ 
+img {
+    height: 350px;
+    width: 350px;
+    padding: 8px;
+    border-radius: 20px;
+}
+
+p {
+    font-size: 18px;
+    color: gray;
+
+}
