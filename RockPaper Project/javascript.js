@@ -1,39 +1,150 @@
 
- function computerChoice() {
-    if (Math.floor(Math.random()) * 3 + 1) {
-        return "Rock";
-    } else if (Math.floor(Math.random()) * 3 + 1 === 2) {
-        return "Paper";
+// Game function
+function playGame() {
+  const symbols = document.querySelectorAll(".symbol-box");
+  const playAgainBox = document.querySelector("#play-again-box");
+  const updatePlayer = document.querySelector("#update-player");
+  const updateScoreboard = document.querySelector("#update-scoreboard");
+  const updateComputer = document.querySelector("#update-computer");
+  const audio = document.querySelector('audio');
+  let playerScore = 0;
+  let computerScore = 0;
+  let gameIsOver = false;
+  symbols.forEach((symbol) => {
+    symbol.classList.remove("disabled");
+  });
+
+
+  // Reset game function
+  function resetGame() {
+    playerScore = 0;
+    computerScore = 0;
+    updatePlayer.textContent = "";
+    updateScoreboard.textContent = "";
+    updateComputer.textContent = "";
+    gameIsOver = false;
+    if (playerScore === 5 || computerScore === 5) {
+    symbols.forEach((symbol) => {
+      symbol.classList.add("enabled");
+    });
+  }
+  }
+
+  // Computer's choice function
+  function computerChoice() {
+    const choices = ["rock", "paper", "scissors"];
+    const randomIndex = Math.floor(Math.random() * 3);
+    return choices[randomIndex];
+  }
+
+  // Play round function
+  function playRound(playerChoice) {
+
+    if (gameIsOver) {
+      return;
     }
-    else
-        (Math.floor(Math.random()) * 3 + 1 === 3);
-    return "Scissors";
-}
-// Pattern / Solution here: Have a function that randomly return 3 parameters. Why? So the computer can play random shit against us
 
-//Function that plays single round, two players, returns a message 
-function playRound(playerSelection, computerSelection) {
-    switch (playRound) {
-        case playerSelection === "Rock" || computerSelection === "Paper":
-            return "You have lost! Paper beats rock!";
-    }
-}
+    const computerChoiceValue = computerChoice();
+    let roundResult = "";
 
-// Game that calls playRound to play 5 rounds that keeps track of score and reports a winner or a loser at end.
-
-function game(perRound) {
-    for (let i = 0; i < 5; i++) {
-        if (i += 1) {
-            console.log('Choose one symbol to start');
-        } else if (i < 1) {
-            console.log('You have lost!');
-        } else if (i > 1) {
-            console.log('You have won!');
+    switch (playerChoice) {
+      case "rock":
+        if (computerChoiceValue === "scissors") {
+          roundResult = "win";
+        } else if (computerChoiceValue === "paper") {
+          roundResult = "lose";
+        } else {
+          roundResult = "tie";
         }
-        else
-            console.log('Tie game');
-        playRound();
+        break;
+      case "paper":
+        if (computerChoiceValue === "rock") {
+          roundResult = "win";
+        } else if (computerChoiceValue === "scissors") {
+          roundResult = "lose";
+        } else {
+          roundResult = "tie";
+        }
+        break;
+      case "scissors":
+        if (computerChoiceValue === "paper") {
+          roundResult = "win";
+        } else if (computerChoiceValue === "rock") {
+          roundResult = "lose";
+        } else {
+          roundResult = "tie";
+        }
+        break;
+      default:
+        break;
     }
+    // Update scores
+    if (roundResult === "win") {
+      playerScore++;
+      updatePlayer.textContent = "You chose " + playerChoice + " and won this round!";
+      updateComputer.textContent = "";
+    } else if (roundResult === "lose") {
+      computerScore++;
+      updateComputer.textContent =
+        "The computer chose " + computerChoiceValue + " and won this round!";
+      updatePlayer.textContent = "";
+    } else {
+      updatePlayer.textContent = "You and the computer both chose " + playerChoice + ". It's a tie!";
+      updateComputer.textContent = "Computer chose " + computerChoiceValue + " as well! Tie!";
+    }
+    updateScoreboard.textContent = `${playerScore} - ${computerScore}`;
+
+    // Check if game is over
+    if (playerScore === 5) {
+      gameIsOver = true;
+      let winner = playerScore > computerScore ? "Player" : "Computer";
+      //alert(`${winner} has won the game!`);
+      updatePlayer.textContent = winner + " has won the game!";
+      updateComputer.textContent = "";
+    } else if (computerScore === 5) {
+      gameIsOver = true;
+      let winner = playerScore > computerScore ? "Player" : "Computer";
+      updateComputer.textContent = winner + " has won the game!";
+      updatePlayer.textContent = "";
+    }
+    symbols.forEach((symbol) => {
+      symbol.classList.add("disabled");
+    });
+  }
+
+  function playAudio() {
+    audio.playbackRate = 1.5;
+    audio.currentTime = 0;
+    audio.play();
+  }
+
+  // Event listener for symbol clicks
+  symbols.forEach((symbol) => {
+    symbol.addEventListener("click", () => {
+      playRound(symbol.firstElementChild.alt.toLowerCase());
+    });
+  });
+
+  // Event listener for sound FX
+  symbols.forEach((symbol) => {
+    symbol.addEventListener('click', playAudio);
+  });
+  playAgainBox.addEventListener("click", playAudio);
+
+  // Event listener for play again button
+  playAgainBox.addEventListener("click", () => {
+  playAgainBox.style.transform = "scale(1.1)";
+  resetGame();
+});
+
+  playAgainBox.addEventListener("mouseout", () => {
+  playAgainBox.style.transform = "scale(1.0)";
+});
+
+  playAgainBox.addEventListener("mouseover", () => {
+  playAgainBox.style.transform = "scale(1.1)";
+  });
 }
 
-
+// Call the game function
+playGame();
